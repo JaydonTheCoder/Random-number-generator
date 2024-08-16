@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator</title>
+    <style>
+        h1 {
+            font-family: 'Coustard', serif;
+            font-size: 30px;
+            font-weight: bold;
+            background-color: cornflowerblue;
+            border: 3px solid cornflowerblue;
+            border-radius: 20px;
+            text-align: center;
+            padding: 10px;
+            color: white;
+        }
+
+        p {
+            font-family: 'Coustard', serif;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            margin: 5px;
+            width: 120px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 3px solid green;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: cornflowerblue;
+            color: white;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #3b5998;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: cornflowerblue;
+        }
+        
+        #error {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: red;
+        }
+
+        /* Initially show the no-JavaScript message */
+        #no-js-message {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            margin-top: 20px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 3px solid red;
+            border-radius: 20px;
+            padding: 20px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Number Generator</h1>
+    <p>This is a random number generator that picks a number between what you input.</p>
+
+    <div id="no-js-message">
+        Please enable JavaScript to use this site. You currently disabled javascript in your settings.
+    </div>
+
+    <div class="container">
+        <p>Enter a range and click the button below to generate a random number.</p>
+        <input type="number" id="min" placeholder="Min number">
+        <input type="number" id="max" placeholder="Max number">
+        <br>
+        <button id="generateButton">Generate</button>
+        <p id="error"></p> <!-- Error message element -->
+        <p>Generated random number:</p>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        // Hide the no-JavaScript message if JavaScript is enabled
+        document.getElementById('no-js-message').style.display = 'none';
+
+        // Function to generate a random number
+        document.getElementById('generateButton').addEventListener('click', function() {
+            const min = parseInt(document.getElementById('min').value);
+            const max = parseInt(document.getElementById('max').value);
+
+            // Clear previous error messages
+            document.getElementById('error').textContent = '';
+            document.getElementById('result').textContent = '';
+
+            if (isNaN(min) || isNaN(max)) {
+                document.getElementById('error').textContent = 'Error: Please enter valid numbers.';
+                return;
+            }
+
+            if (min >= max) {
+                document.getElementById('error').textContent = 'Error: Maximum number must be greater than minimum.';
+                return;
+            }
+
+            const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+            document.getElementById('result').textContent = `${randomNumber}`;
+        });
+    </script>
+</body>
+</html>
